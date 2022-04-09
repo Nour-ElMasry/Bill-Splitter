@@ -1,0 +1,24 @@
+<%- include('partials/header.ejs') %>
+
+    <section class="bill container">
+        <h3>Total Bill is
+            <%= bill %> lei</h3>
+        <% data.forEach(function (pers) {%>
+
+            <div class="container__result">
+                <h3>
+                    Bill For
+                    <%= pers.name %>:
+                </h3>
+                <div class="total">
+                    <%= pers.totalBill %>
+                </div>
+            </div>
+
+            <% })%>
+
+                <form action="/splitter" method="post">
+                    <button type="submit" class="btn">Reset</button></form>
+    </section>
+
+    <%- include('partials/footer.ejs') %>

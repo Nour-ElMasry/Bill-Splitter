@@ -1,0 +1,73 @@
+<%- include('partials/header.ejs') %>
+
+    <section class="container">
+        <div class="items-sec">
+            <% data.forEach(function(pers){ %>
+                <div class="PersItems container__background">
+                    <h3>
+                        Assign Items For
+                        <%= pers.name %>:
+                    </h3>
+                    <form action="/items" method="post" class="itemInput" autocomplete="off">
+                        <input type="hidden" name="customerName" value="<%= pers.name %>">
+                        <input type="text" placeholder="Name" class="itemName" name="itemName">
+                        <input type="number" placeholder="Price" class="itemPrice" name="itemPrice">
+                        <div class="items-control flex flex-ai-c">
+                            <a class="decrement">-</a>
+                            <input type="number" min="1" value="1" class="itemAmount" name="amount">
+                            <a class="increment">+</a>
+                        </div>
+                        <button type="submit" class="itemAdd">Add Item</button>
+                    </form>
+                    <div class="itemsList container__result">
+                        <h4>List of Items:</h4>
+                        <% if(pers.items.length == 0) {%>
+                            <p>No Items Added Yet!</p>
+                            <% }else{ %>
+                                <ol type="1">
+                                    <% pers.items.forEach(function(item){%>
+                                        <li>
+                                            <%=item.name%> x
+                                                <%=item.amount%>
+                                        </li>
+                                        <%}) %>
+
+
+                                            <% }%>
+                                </ol>
+
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+        <br>
+        <form action="/splitter" method="get">
+            <button type="submit" class="btn">Split Bill</button>
+        </form>
+        <br>
+    </section>
+
+    <script>
+        const incBtn = document.querySelectorAll(".increment");
+        const decBtn = document.querySelectorAll(".decrement");
+        const amount = document.querySelectorAll(".itemAmount");
+
+        incBtn.forEach((item, i) => { // here
+            item.addEventListener('click', arrow => {
+                if (parseInt(amount[i].value) < 99) {
+                    let tmp = parseInt(amount[i].value) + 1;
+                    amount[i].value = tmp;
+                }
+            })
+        });
+        decBtn.forEach((item, i) => { // here
+            item.addEventListener('click', arrow => {
+                if (parseInt(amount[i].value) > 0) {
+                    let tmp = parseInt(amount[i].value) - 1;
+                    amount[i].value = tmp;
+                }
+
+            })
+        });
+    </script>
+    <%- include('partials/footer.ejs') %>

@@ -1,0 +1,53 @@
+<%- include('partials/header.ejs') %>
+
+    <section class="container">
+        <div class="persons container__background">
+            <div class="addPers">
+                <h4>Persons Info:</h4>
+                <p class="warning">*No Duplicate Names allowed</p>
+                <form action="/" method="post" class="flex" autocomplete="off">
+                    <input type="text" placeholder="Person Name" name="persName" class="txtNameInput">
+                    <button type="submit" class="btnNameInput">Add</button>
+                </form>
+
+            </div>
+            <div class="displayPers container__result">
+                <h4>List of Persons:</h4>
+                <% if(data.length == 0) {%>
+                    <p>No Persons Added Yet!</p>
+                    <% }else{ %>
+                        <ol type="1">
+                            <% data.forEach(function(elem){ %>
+                                <li>
+                                    <%= elem.name %>
+                                </li>
+
+                                <% })%>
+                        </ol>
+                        <% } %>
+            </div>
+
+
+            <% if(data.length != 0) {%>
+                <div class="assign">
+                    <form action="/items" method="get">
+                        <button type="submit" class="btn">Assign Items</button>
+                    </form>
+                </div>
+                <% } %>
+        </div>
+    </section>
+
+    <script>
+        const inputNameTxt = document.querySelector('.txtNameInput');
+        const inputNameBtn = document.querySelector('.btnNameInput');
+        const hasNumber = /\d/;
+
+        inputNameBtn.addEventListener('click', function() {
+            if (inputNameTxt.value === '' || hasNumber.test(inputNameTxt.value)) {
+                alert('Pls Enter A Valid Name!');
+            }
+        });
+    </script>
+
+    <%- include('partials/footer.ejs') %>

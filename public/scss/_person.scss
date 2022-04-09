@@ -1,0 +1,63 @@
+.persons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr;
+    grid-template-areas: "addPers" "displayPers" "assign";
+    @include breakpoint-up(medium) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: "addPers displayPers" "assign displayPers";
+        column-gap: 2.5rem;
+    }
+    h4 {
+        font-size: $sm-font;
+    }
+    .addPers {
+        grid-area: addPers;
+        margin-bottom: 1rem;
+        .warning {
+            color: red;
+            font-size: 8px;
+            @include breakpoint-up(medium) {
+                font-size: 10px;
+            }
+        }
+        form {
+            background: rgb(0, 219, 142);
+            background: linear-gradient(90deg, rgba(0, 219, 142, 1) 60%, rgba(153, 206, 217, 1) 82%);
+            border-radius: 0.875rem;
+            .txtNameInput {
+                border: none;
+                background-color: transparent;
+                color: $white;
+                padding-left: 0.625rem;
+                width: 75%;
+            }
+            .btnNameInput {
+                border: none;
+                background-color: transparent;
+                color: $white;
+                width: 25%;
+                padding: 0.5rem 0;
+                cursor: pointer;
+            }
+             ::placeholder {
+                color: $white;
+                opacity: 1;
+            }
+        }
+    }
+    .displayPers {
+        grid-area: displayPers;
+        @include breakpoint-down(small) {
+            margin-bottom: 1rem;
+        }
+        p,
+        li {
+            font-size: $vsm-font;
+        }
+    }
+    .assign {
+        grid-area: assign;
+    }
+}
